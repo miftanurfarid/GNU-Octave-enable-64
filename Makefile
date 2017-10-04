@@ -234,6 +234,7 @@ OCTAVE_VER = 4.2.1
 #   --with-arpack='-larpack$(_SONAME_SUFFIX)'
 
 OCTAVE_CONFIG_FLAGS = \
+  JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
   CPPFLAGS='-I$(INSTALL_DIR)/include' \
   LDFLAGS='-L$(INSTALL_DIR)/lib' \
   LD_LIBRARY_PATH='$(INSTALL_DIR)/lib' \
