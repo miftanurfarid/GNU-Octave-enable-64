@@ -46,9 +46,13 @@ clean:
 
 OPENBLAS_VER = 0.2.20
 
+CC = gcc-5
+CXX = g++-5
+F77 = gfortran-5
+
 $(SRC_CACHE)/openblas-$(OPENBLAS_VER).zip:
 	@echo -e "\n>>> Download OpenBLAS <<<\n"
-	cd $(SRC_CACHE) && wget -q \
+	cd $(SRC_CACHE) && wget \
 	https://github.com/xianyi/OpenBLAS/archive/v$(OPENBLAS_VER).zip \
 	                && mv v$(OPENBLAS_VER).zip $@
 
@@ -75,12 +79,16 @@ openblas: $(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so
 
 # SUITESPARSE_VER = 4.5.5
 
+# CC = gcc-5
+# CXX = g++-5
+# F77 = gfortran-5
+
 # SUITESPARSE_LIBS = amd camd colamd ccolamd csparse cxsparse cholmod umfpack \
 # 	spqr klu rbio ldl btf suitesparseconfig
 
 # $(SRC_CACHE)/suitesparse-$(SUITESPARSE_VER).tar.gz:
 # 	@echo -e "\n>>> Download SuiteSparse <<<\n"
-# 	cd $(SRC_CACHE) && wget -q \
+# 	cd $(SRC_CACHE) && wget \
 # 	http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-$(SUITESPARSE_VER).tar.gz \
 # 	                && mv SuiteSparse-$(SUITESPARSE_VER).tar.gz $@
 
@@ -126,9 +134,13 @@ openblas: $(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so
 
 QRUPDATE_VER = 1.1.2
 
+CC = gcc-5
+CXX = g++-5
+F77 = gfortran-5
+
 $(SRC_CACHE)/qrupdate-$(QRUPDATE_VER).tar.gz:
 	@echo -e "\n>>> Download QRUPDATE <<<\n"
-	cd $(SRC_CACHE) && wget -q \
+	cd $(SRC_CACHE) && wget \
 	http://downloads.sourceforge.net/project/qrupdate/qrupdate/1.2/qrupdate-$(QRUPDATE_VER).tar.gz
 
 $(INSTALL_DIR)/lib/libqrupdate$(_SONAME_SUFFIX).so: \
@@ -161,9 +173,13 @@ qrupdate: $(INSTALL_DIR)/lib/libqrupdate$(_SONAME_SUFFIX).so
 
 ARPACK_VER = 3.5.0
 
+CC = gcc-5
+CXX = g++-5
+F77 = gfortran-5
+
 $(SRC_CACHE)/arpack-$(ARPACK_VER).tar.gz:
 	@echo -e "\n>>> Download ARPACK <<<\n"
-	cd $(SRC_CACHE) && wget -q \
+	cd $(SRC_CACHE) && wget \
 	https://github.com/opencollab/arpack-ng/archive/$(ARPACK_VER).tar.gz \
 	                && mv $(ARPACK_VER).tar.gz $@
 
@@ -200,41 +216,21 @@ arpack: $(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so
 
 OCTAVE_VER = 4.2.1
 
-# LDSUITESPARSE = \
-#   '-lamd$(_SONAME_SUFFIX) \
-#    -lcamd$(_SONAME_SUFFIX) \
-#    -lcolamd$(_SONAME_SUFFIX) \
-#    -lccolamd$(_SONAME_SUFFIX) \
-#    -lcxsparse$(_SONAME_SUFFIX) \
-#    -lumfpack$(_SONAME_SUFFIX) \
-#    -lcholmod$(_SONAME_SUFFIX) \
-#    -lsuitesparseconfig$(_SONAME_SUFFIX)'
+CC = gcc-5
+CXX = g++-5
+F77 = gfortran-5
 
-# OCTAVE_CONFIG_FLAGS = \
-#   CPPFLAGS='-I$(INSTALL_DIR)/include' \
-#   LDFLAGS='-L$(INSTALL_DIR)/lib' \
-#   LD_LIBRARY_PATH='$(INSTALL_DIR)/lib' \
-#   --prefix=$(INSTALL_DIR) \
-#   --libdir='$(INSTALL_DIR)/lib' \
-#   --enable-64 \
-#   --with-blas='-lopenblas$(_SONAME_SUFFIX)' \
-#   --with-amd='-lamd$(_SONAME_SUFFIX) \
-#               -lsuitesparseconfig$(_SONAME_SUFFIX)' \
-#   --with-camd='-lcamd$(_SONAME_SUFFIX) \
-#                -lsuitesparseconfig$(_SONAME_SUFFIX)' \
-#   --with-colamd='-lcolamd$(_SONAME_SUFFIX) \
-#                  -lsuitesparseconfig$(_SONAME_SUFFIX)' \
-#   --with-ccolamd='-lccolamd$(_SONAME_SUFFIX) \
-#                   -lsuitesparseconfig$(_SONAME_SUFFIX)' \
-#   --with-cxsparse='-lcxsparse$(_SONAME_SUFFIX) \
-#                    -lsuitesparseconfig$(_SONAME_SUFFIX)' \
-#   --with-cholmod=$(LDSUITESPARSE) \
-#   --with-umfpack=$(LDSUITESPARSE) \
-#   --with-qrupdate='-lqrupdate$(_SONAME_SUFFIX)' \
-#   --with-arpack='-larpack$(_SONAME_SUFFIX)'
+# LDSUITESPARSE = \
+  '-lamd$(_SONAME_SUFFIX) \
+   -lcamd$(_SONAME_SUFFIX) \
+   -lcolamd$(_SONAME_SUFFIX) \
+   -lccolamd$(_SONAME_SUFFIX) \
+   -lcxsparse$(_SONAME_SUFFIX) \
+   -lumfpack$(_SONAME_SUFFIX) \
+   -lcholmod$(_SONAME_SUFFIX) \
+   -lsuitesparseconfig$(_SONAME_SUFFIX)'
 
 OCTAVE_CONFIG_FLAGS = \
-  JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
   CPPFLAGS='-I$(INSTALL_DIR)/include' \
   LDFLAGS='-L$(INSTALL_DIR)/lib' \
   LD_LIBRARY_PATH='$(INSTALL_DIR)/lib' \
@@ -247,24 +243,8 @@ OCTAVE_CONFIG_FLAGS = \
 
 $(SRC_CACHE)/octave-$(OCTAVE_VER).tar.lz:
 	@echo -e "\n>>> Download GNU Octave <<<\n"
-	cd $(SRC_CACHE) && wget -q \
+	cd $(SRC_CACHE) && wget \
 	  https://ftp.gnu.org/gnu/octave/octave-$(OCTAVE_VER).tar.lz
-
-# $(INSTALL_DIR)/bin/octave: $(SRC_CACHE)/octave-$(OCTAVE_VER).tar.lz \
-# 	$(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so \
-# 	$(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so \
-# 	$(INSTALL_DIR)/lib/libqrupdate$(_SONAME_SUFFIX).so \
-# 	$(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so
-# 	@echo -e "\n>>> Untar to $(BUILD_DIR)/octave <<<\n"
-# 	cd $(BUILD_DIR) && tar -xf $< \
-# 	                && mv octave-$(OCTAVE_VER) octave
-# 	@echo -e "\n>>> Octave: configure (1/3) <<<\n"
-# 	cd $(BUILD_DIR)/octave && ./configure $(OCTAVE_CONFIG_FLAGS)
-# 	@echo -e "\n>>> Octave: build (2/3) <<<\n"
-# 	cd $(BUILD_DIR)/octave && $(MAKE) install
-# 	@echo -e "\n>>> Octave: check (3/3) <<<\n"
-# 	cd $(BUILD_DIR)/octave && $(MAKE) check \
-# 	                          LD_LIBRARY_PATH='$(INSTALL_DIR)/lib'
 
 $(INSTALL_DIR)/bin/octave: $(SRC_CACHE)/octave-$(OCTAVE_VER).tar.lz \
 	$(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so \
